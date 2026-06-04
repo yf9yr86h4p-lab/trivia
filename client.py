@@ -2,7 +2,7 @@ import socket
 import chatlib 
 
 SERVER_IP = "127.0.0.1" 
-SERVER_PORT = 8888
+SERVER_PORT = 5678
 
 def build_and_send_message(conn, code, data):
     """
@@ -85,13 +85,19 @@ def play_question(conn):
     if msg_code == chatlib.PROTOCOL_SERVER["no_questions_msg"]:
         print("No more question left!")
     elif msg_code == chatlib.PROTOCOL_SERVER["your_question_msg"]:
-        print("Question is:", data)
+        msg_parts = data.split("#")
+        print("Q:", msg_parts[1])
+        print("1. ", msg_parts[2])
+        print("2. ", msg_parts[3])
+        print("3. ", msg_parts[4])
+        print("4. ", msg_parts[5])
         user_answer = input("Please choose an answer [1-4]: ")
-        msg_code, data = build_send_recv_parse(conn, chatlib.PROTOCOL_CLIENT["send_answer_msg"], user_answer)
+        format_answer = msg_parts[0] + "#" + user_answer
+        msg_code, data = build_send_recv_parse(conn, chatlib.PROTOCOL_CLIENT["send_answer_msg"], format_answer)
         if msg_code == chatlib.PROTOCOL_SERVER["correct_answer_msg"]:
             print("Your answer is correct!")
         elif msg_code == chatlib.PROTOCOL_SERVER["wrong_answer_msg"]:
-            print("Nope, correct answer is", data)
+            print("Nope, correct answer is #", data)
 
 def  get_logged_users(conn):
     msg_code, data = build_send_recv_parse(conn, chatlib.PROTOCOL_CLIENT["get_logged_users_msg"], "")
