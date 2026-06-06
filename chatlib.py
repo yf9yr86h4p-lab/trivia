@@ -29,7 +29,7 @@ PROTOCOL_SERVER = {
 "no_questions_msg" : "NO_QUESTIONS",
 "correct_answer_msg" : "CORRECT_ANSWER",
 "wrong_answer_msg" : "WRONG_ANSWER",
-'logged_users_msg' : "LOGGES_USERS_OK"
+'logged_users_msg' : "LOGGED_USERS_OK"
 } # ..  Add more commands if needed
 
 
